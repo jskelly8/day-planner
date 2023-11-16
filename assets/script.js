@@ -1,5 +1,7 @@
 // DOM Elements
 var displayTodayEl = $('#currentDay');
+var saveBtnEl = $('.saveBtn');
+
 var save = $('<button>');
 var hour9 = $('#hour-9');
 var hour10 = $('#hour-10');
@@ -13,12 +15,17 @@ var hour17 = $('#hour-17');
 
 var currentHour = dayjs().hour();
 
-// var plannerHours = [
-//     hour9, hour10, hour11, hour12, hour13, hour14, hour15, hour16, hour17
-// ];
-
 // Function to have code not run until entire page is ready to be fully rendered by browswer
 $(function () {
+
+    // Function to display current date and time in the header of the page, called below
+    function displayNow() {
+        var now = dayjs().format('[Today is] dddd, MMMM DD [at] hh:mm:ss a');
+        displayTodayEl.text(now);
+    };
+
+    displayNow();
+
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. 
@@ -28,15 +35,15 @@ $(function () {
     // useful when saving the description in local storage?
     //
 
+    // saveBtn = save button for click listener 
+    saveBtnEl.on('click', function() {
 
+        var hourBlock = $(this).parent().attr("id").split("-")[1];
+        var hourText = $(this).siblings('.description').val();
 
+        localStorage.setItem(hourBlock, hourText);
 
-
-
-
-
-
-
+    });
 
     // TODO: Add code to apply the past, present, or future class to each time
     // block by comparing the id to the current hour. 
@@ -68,15 +75,19 @@ $(function () {
     // attribute of each time-block be used to do this?
     //
 
+    function loadInput() {
+        $('.time-block').each(function() {
+            var selectedHour = $(this).attr('id').split('-')[1];
+            var plannedEvent = localStorage.getItem(selectedHour);
 
-    // Function to display current date and time in the header of the page, called below
-    function displayNow() {
-        var now = dayjs().format('[Today is] dddd, MMMM DD [at] hh:mm:ss a');
-        displayTodayEl.text(now);
+            if (plannedEvent) {
+                $(this).find('.description').val(plannedEvent);
+            }
+        });
     };
 
-    displayNow();
+    loadInput();
+
+    
 
 });
-
-
