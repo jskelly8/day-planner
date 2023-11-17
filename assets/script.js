@@ -13,7 +13,7 @@ $(function () {
         displayTodayEl.text(now);
     };
 
-    displayNow();
+    setInterval(displayNow, 1000);
 
     // Save button click listener to save the user input of planned event into local storage to load later to keep saved on page
     saveBtnEl.on('click', function() {
