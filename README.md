@@ -9,7 +9,7 @@ This was a project to finish starter code in order to produce a simple calendar 
 ## Usage
 
 URL of deployed site: 
-
+https://jskelly8.github.io/day-planner/
 
 Screenshot of deployed site:
 ![screenshot of daily planner site](./assets/dailyPlannerClipped.png)
